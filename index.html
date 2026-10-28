@@ -1,0 +1,563 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>全球乳清蛋白產能擴張 — 視覺化報告 2026</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Segoe UI',system-ui,sans-serif;background:#0F172A;color:#E2E8F0;min-height:100vh}
+.header{background:linear-gradient(135deg,#1B3A6B 0%,#1e3a8a 100%);padding:18px 32px;border-bottom:2px solid #2563EB}
+.header h1{font-size:19px;font-weight:800;color:#fff}
+.header p{font-size:11px;color:#93C5FD;margin-top:3px}
+.tabs{display:flex;gap:4px;padding:10px 20px;background:#0F172A;border-bottom:1px solid #1E3A5F;flex-wrap:wrap}
+.tab{padding:7px 14px;border-radius:7px;border:1px solid #1E3A5F;background:#111827;color:#94A3B8;font-size:12px;font-weight:600;cursor:pointer;transition:all .2s}
+.tab:hover{border-color:#2563EB;color:#93C5FD}
+.tab.active{background:#1D4ED8;border-color:#3B82F6;color:#fff}
+.panel{display:none;padding:20px 24px;animation:fadeIn .25s ease}
+.panel.active{display:block}
+@keyframes fadeIn{from{opacity:0;transform:translateY(3px)}to{opacity:1;transform:translateY(0)}}
+.ptitle{font-size:16px;font-weight:700;color:#60A5FA;margin-bottom:6px;display:flex;align-items:center;gap:8px}
+.pnote{font-size:11px;color:#64748B;margin-bottom:14px;font-style:italic}
+.map-pair{display:flex;flex-direction:column;gap:20px}
+.map-block{background:#0B1629;border:1px solid #1E3A5F;border-radius:12px;overflow:hidden;padding:12px}
+.map-label{font-size:12px;font-weight:700;color:#93C5FD;margin-bottom:8px;display:flex;align-items:center;gap:6px}
+.map-legend{display:flex;gap:16px;flex-wrap:wrap;margin-top:8px}
+.leg{display:flex;align-items:center;gap:6px;font-size:11px;color:#94A3B8}
+.leg-dot{width:10px;height:10px;border-radius:50%;flex-shrink:0}
+svg.worldmap{display:block;width:100%;height:auto}
+.cap-table{width:100%;border-collapse:collapse;font-size:11.5px;margin-top:16px}
+.cap-table th{background:#1E3A5F;color:#93C5FD;padding:8px 10px;text-align:left;font-weight:700;white-space:nowrap}
+.cap-table td{padding:7px 10px;border-bottom:1px solid #1A2E4A;color:#CBD5E1;vertical-align:top}
+.cap-table tr:hover td{background:#111827}
+.tag{display:inline-block;padding:1px 6px;border-radius:3px;font-size:10px;font-weight:700}
+.tg{background:rgba(22,163,74,.15);color:#4ADE80}.tb{background:rgba(37,99,235,.15);color:#60A5FA}
+.ta{background:rgba(217,119,6,.15);color:#FCD34D}.tgr{background:rgba(100,116,139,.15);color:#94A3B8}
+.bs-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(270px,1fr));gap:14px}
+.bsc{background:#111827;border:1px solid #1E3A5F;border-radius:10px;padding:14px}
+.bsc:hover{border-color:#3B82F6}
+.bsc.hot{border-color:rgba(239,68,68,.3)}
+.bsc.hot .bst{color:#FCA5A5}
+.bsi{font-size:26px;margin-bottom:6px}
+.bst{font-size:12px;font-weight:700;color:#93C5FD;margin-bottom:6px}
+.bsb{font-size:11.5px;color:#94A3B8;line-height:1.55}
+</style>
+</head>
+<body>
+<div class="header">
+  <h1>🥛 全球乳清蛋白產能擴張 — 視覺化情報報告</h1>
+  <p>2026-10-28 ｜ 加工設備瓶頸 × 7 家擴廠全覽 × 你沒注意到的盲點</p>
+</div>
+<div class="tabs">
+  <button class="tab active" onclick="showTab('flow',this)">① 加工設備流程</button>
+  <button class="tab" onclick="showTab('maps',this)">② 地圖：現況＋擴廠</button>
+  <button class="tab" onclick="showTab('chart',this)">③ 產能比較圖</button>
+  <button class="tab" onclick="showTab('blind',this)">④ 你沒注意的盲點</button>
+</div>
+
+<!-- ① Equipment Flow -->
+<div id="tab-flow" class="panel active">
+  <div class="ptitle">⚙️ 乳清蛋白加工流程 — 瓶頸在這三個設備</div>
+  <p class="pnote">液態乳清不缺（起司副產品），但把它變成 WPC80 / WPI 粉末需要高資本、長交期的設備。</p>
+  <div style="overflow-x:auto">
+  <svg viewBox="0 0 1100 420" width="1100" height="420" xmlns="http://www.w3.org/2000/svg" style="min-width:800px">
+    <defs>
+      <marker id="arr" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto"><path d="M0,0 L0,6 L8,3 z" fill="#3B82F6"/></marker>
+      <filter id="glow"><feGaussianBlur stdDeviation="3" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+    </defs>
+    <rect width="1100" height="420" fill="#111827" rx="12"/>
+    <!-- Cheese -->
+    <g transform="translate(28,135)">
+      <rect width="112" height="135" rx="10" fill="#1E3A5F" stroke="#2563EB" stroke-width="1.5"/>
+      <text x="56" y="46" text-anchor="middle" font-size="34">🧀</text>
+      <text x="56" y="70" text-anchor="middle" font-size="10" fill="#93C5FD" font-weight="700">起司工廠</text>
+      <text x="56" y="83" text-anchor="middle" font-size="9" fill="#64748B">Cheese Plant</text>
+      <rect x="8" y="94" width="96" height="28" rx="4" fill="#0F172A"/>
+      <text x="56" y="108" text-anchor="middle" font-size="9" fill="#4ADE80">液態乳清副產品</text>
+      <text x="56" y="120" text-anchor="middle" font-size="9" fill="#4ADE80">~6% 蛋白質</text>
+    </g>
+    <path d="M140,202 L168,202" stroke="#3B82F6" stroke-width="2.5" marker-end="url(#arr)"/>
+    <!-- UF -->
+    <g transform="translate(168,95)">
+      <rect width="152" height="228" rx="12" fill="#1B3A6B" stroke="#3B82F6" stroke-width="2" filter="url(#glow)"/>
+      <text x="76" y="28" text-anchor="middle" font-size="11" fill="#93C5FD" font-weight="800">超濾膜 (UF)</text>
+      <text x="76" y="42" text-anchor="middle" font-size="9" fill="#64748B">Ultrafiltration</text>
+      <g opacity=".9">
+        <line x1="18" y1="60" x2="134" y2="60" stroke="#1D4ED8" stroke-width="3.5" stroke-linecap="round"/>
+        <line x1="18" y1="73" x2="134" y2="73" stroke="#1D4ED8" stroke-width="3.5" stroke-linecap="round"/>
+        <line x1="18" y1="86" x2="134" y2="86" stroke="#1D4ED8" stroke-width="3.5" stroke-linecap="round"/>
+        <line x1="18" y1="99" x2="134" y2="99" stroke="#1D4ED8" stroke-width="3.5" stroke-linecap="round"/>
+        <line x1="18" y1="112" x2="134" y2="112" stroke="#1D4ED8" stroke-width="3.5" stroke-linecap="round"/>
+        <circle cx="38" cy="66" r="5" fill="#60A5FA"/><circle cx="60" cy="79" r="5" fill="#60A5FA"/>
+        <circle cx="82" cy="66" r="5" fill="#60A5FA"/><circle cx="104" cy="92" r="5" fill="#60A5FA"/>
+        <circle cx="52" cy="92" r="5" fill="#60A5FA"/><circle cx="116" cy="79" r="5" fill="#60A5FA"/>
+        <circle cx="32" cy="140" r="3" fill="#BAE6FD" opacity=".6"/>
+        <circle cx="58" cy="133" r="2.5" fill="#BAE6FD" opacity=".5"/>
+        <circle cx="84" cy="142" r="3" fill="#BAE6FD" opacity=".6"/>
+        <circle cx="110" cy="135" r="2.5" fill="#BAE6FD" opacity=".5"/>
+      </g>
+      <text x="76" y="162" text-anchor="middle" font-size="9" fill="#64748B">● 蛋白質留下</text>
+      <text x="76" y="174" text-anchor="middle" font-size="9" fill="#BAE6FD">○ 水 / 乳糖通過</text>
+      <rect x="8" y="183" width="136" height="30" rx="5" fill="#0F172A"/>
+      <text x="76" y="198" text-anchor="middle" font-size="9" fill="#FCD34D" font-weight="700">→ WPC 35–80%</text>
+      <text x="76" y="209" text-anchor="middle" font-size="8" fill="#64748B">交期 18–30 個月</text>
+    </g>
+    <path d="M320,202 L352,202" stroke="#3B82F6" stroke-width="2.5" marker-end="url(#arr)"/>
+    <!-- NF -->
+    <g transform="translate(352,95)">
+      <rect width="152" height="228" rx="12" fill="#1B4332" stroke="#16A34A" stroke-width="2"/>
+      <text x="76" y="28" text-anchor="middle" font-size="11" fill="#4ADE80" font-weight="800">奈米過濾膜 (NF)</text>
+      <text x="76" y="42" text-anchor="middle" font-size="9" fill="#64748B">Nanofiltration</text>
+      <g opacity=".9">
+        <line x1="18" y1="60" x2="134" y2="60" stroke="#166534" stroke-width="4.5" stroke-linecap="round"/>
+        <line x1="18" y1="75" x2="134" y2="75" stroke="#166534" stroke-width="4.5" stroke-linecap="round"/>
+        <line x1="18" y1="90" x2="134" y2="90" stroke="#166534" stroke-width="4.5" stroke-linecap="round"/>
+        <line x1="18" y1="105" x2="134" y2="105" stroke="#166534" stroke-width="4.5" stroke-linecap="round"/>
+        <line x1="18" y1="120" x2="134" y2="120" stroke="#166534" stroke-width="4.5" stroke-linecap="round"/>
+        <circle cx="36" cy="67" r="5" fill="#4ADE80"/><circle cx="58" cy="82" r="5" fill="#4ADE80"/>
+        <circle cx="80" cy="67" r="5" fill="#4ADE80"/><circle cx="100" cy="97" r="5" fill="#4ADE80"/>
+        <circle cx="118" cy="82" r="5" fill="#4ADE80"/>
+        <circle cx="40" cy="145" r="2" fill="#86EFAC" opacity=".5"/>
+        <circle cx="72" cy="138" r="2" fill="#86EFAC" opacity=".5"/>
+        <circle cx="100" cy="146" r="2" fill="#86EFAC" opacity=".5"/>
+      </g>
+      <text x="76" y="162" text-anchor="middle" font-size="9" fill="#64748B">● 蛋白質+乳糖留下</text>
+      <text x="76" y="174" text-anchor="middle" font-size="9" fill="#86EFAC">○ 礦物質通過</text>
+      <rect x="8" y="183" width="136" height="30" rx="5" fill="#0F172A"/>
+      <text x="76" y="198" text-anchor="middle" font-size="9" fill="#FCD34D" font-weight="700">→ WPI 90%+</text>
+      <text x="76" y="209" text-anchor="middle" font-size="8" fill="#64748B">交期 18–30 個月</text>
+    </g>
+    <path d="M504,202 L536,202" stroke="#3B82F6" stroke-width="2.5" marker-end="url(#arr)"/>
+    <!-- Spray Dryer -->
+    <g transform="translate(536,75)">
+      <rect width="164" height="268" rx="12" fill="#2D1B4E" stroke="#7C3AED" stroke-width="2"/>
+      <text x="82" y="28" text-anchor="middle" font-size="11" fill="#C4B5FD" font-weight="800">噴霧乾燥塔</text>
+      <text x="82" y="42" text-anchor="middle" font-size="9" fill="#64748B">Spray Dryer</text>
+      <ellipse cx="82" cy="68" rx="48" ry="11" fill="#4C1D95" stroke="#7C3AED" stroke-width="1.5"/>
+      <rect x="34" y="68" width="96" height="100" fill="#3B0764"/>
+      <ellipse cx="82" cy="168" rx="48" ry="11" fill="#4C1D95" stroke="#7C3AED" stroke-width="1.5"/>
+      <line x1="82" y1="57" x2="82" y2="80" stroke="#C4B5FD" stroke-width="2"/>
+      <path d="M72,80 Q82,66 92,80" fill="#7C3AED" stroke="#C4B5FD" stroke-width="1"/>
+      <circle cx="58" cy="98" r="3" fill="#E0E7FF" opacity=".7"/>
+      <circle cx="74" cy="110" r="2.5" fill="#E0E7FF" opacity=".6"/>
+      <circle cx="96" cy="95" r="3" fill="#E0E7FF" opacity=".7"/>
+      <circle cx="66" cy="122" r="2" fill="#E0E7FF" opacity=".5"/>
+      <circle cx="100" cy="115" r="2.5" fill="#E0E7FF" opacity=".6"/>
+      <path d="M15,115 L28,115" stroke="#F97316" stroke-width="2" marker-end="url(#arr)"/>
+      <path d="M15,135 L28,135" stroke="#F97316" stroke-width="2" marker-end="url(#arr)"/>
+      <text x="12" y="108" text-anchor="middle" font-size="9" fill="#F97316">🔥</text>
+      <text x="12" y="128" text-anchor="middle" font-size="9" fill="#F97316">熱風</text>
+      <path d="M44,163 Q82,153 120,163" stroke="#FCD34D" stroke-width="1.5" fill="none"/>
+      <path d="M50,172 L50,198 Q82,213 114,198 L114,172" fill="#1F1635" stroke="#7C3AED" stroke-width="1"/>
+      <rect x="8" y="210" width="148" height="30" rx="5" fill="#0F172A"/>
+      <text x="82" y="225" text-anchor="middle" font-size="9" fill="#FCD34D" font-weight="700">最終產品粉末</text>
+      <text x="82" y="235" text-anchor="middle" font-size="8" fill="#64748B">交期 12–24 個月</text>
+    </g>
+    <path d="M700,205 L730,205" stroke="#3B82F6" stroke-width="2.5" marker-end="url(#arr)"/>
+    <!-- Products -->
+    <g transform="translate(730,75)">
+      <rect x="0" y="0" width="148" height="54" rx="8" fill="#1E3A5F" stroke="#3B82F6" stroke-width="1.5"/>
+      <text x="74" y="19" text-anchor="middle" font-size="13">📦</text>
+      <text x="74" y="34" text-anchor="middle" font-size="11" fill="#60A5FA" font-weight="700">WPC 34%</text>
+      <text x="74" y="46" text-anchor="middle" font-size="9" fill="#64748B">動物飼料、烘焙</text>
+      <rect x="0" y="64" width="148" height="54" rx="8" fill="#1B3A6B" stroke="#3B82F6" stroke-width="2"/>
+      <text x="74" y="83" text-anchor="middle" font-size="13">🏋️</text>
+      <text x="74" y="98" text-anchor="middle" font-size="11" fill="#93C5FD" font-weight="700">WPC 80%</text>
+      <text x="74" y="110" text-anchor="middle" font-size="9" fill="#FCD34D">🔥 最缺 +400%↑</text>
+      <rect x="0" y="128" width="148" height="54" rx="8" fill="#1B4332" stroke="#16A34A" stroke-width="2"/>
+      <text x="74" y="147" text-anchor="middle" font-size="13">💪</text>
+      <text x="74" y="162" text-anchor="middle" font-size="11" fill="#4ADE80" font-weight="700">WPI 90%+</text>
+      <text x="74" y="174" text-anchor="middle" font-size="9" fill="#FCD34D">🔥 最緊 €25-27k/t</text>
+      <rect x="0" y="192" width="148" height="54" rx="8" fill="#2D1B4E" stroke="#7C3AED" stroke-width="1.5"/>
+      <text x="74" y="211" text-anchor="middle" font-size="13">🧪</text>
+      <text x="74" y="226" text-anchor="middle" font-size="11" fill="#C4B5FD" font-weight="700">WPH 水解</text>
+      <text x="74" y="238" text-anchor="middle" font-size="9" fill="#64748B">嬰配/高端恢復</text>
+      <rect x="0" y="256" width="148" height="50" rx="8" fill="#1A1F2E" stroke="#F59E0B" stroke-width="1.5"/>
+      <text x="74" y="273" text-anchor="middle" font-size="13">🫙</text>
+      <text x="74" y="288" text-anchor="middle" font-size="11" fill="#FCD34D" font-weight="700">Clear Whey</text>
+      <text x="74" y="299" text-anchor="middle" font-size="9" fill="#64748B">WPI 低 pH 熱處理→透明</text>
+    </g>
+    <rect x="162" y="350" width="548" height="52" rx="10" fill="#450A0A" stroke="rgba(239,68,68,.4)" stroke-width="1.5"/>
+    <text x="436" y="371" text-anchor="middle" font-size="13" fill="#FCA5A5" font-weight="800" font-family="Segoe UI,sans-serif">⚠ 瓶頸就在這三台機器</text>
+    <text x="436" y="389" text-anchor="middle" font-size="11" fill="#F87171" font-family="Segoe UI,sans-serif">訂單積壓 → 從決策到量產需 2–4 年 → 所有「2027 上線」都有滑動風險</text>
+  </svg>
+  </div>
+</div>
+
+<!-- ② Maps combined -->
+<div id="tab-maps" class="panel">
+  <div class="ptitle">🗺️ 全球乳清產能地圖</div>
+  <div class="map-pair">
+    <!-- TOP MAP: Current -->
+    <div class="map-block">
+      <div class="map-label">📍 現況：主要乳清蛋白加工廠分布（2026）</div>
+      <svg id="svgNow" class="worldmap" viewBox="0 0 1000 430" xmlns="http://www.w3.org/2000/svg" style="border-radius:8px"></svg>
+      <div class="map-legend">
+        <div class="leg"><div class="leg-dot" style="background:#22D3EE;box-shadow:0 0 5px #22D3EE"></div>美國主力廠</div>
+        <div class="leg"><div class="leg-dot" style="background:#4ADE80;box-shadow:0 0 5px #4ADE80"></div>歐洲主力廠</div>
+        <div class="leg"><div class="leg-dot" style="background:#FBBF24;box-shadow:0 0 5px #FBBF24"></div>大洋洲</div>
+        <span style="margin-left:auto;font-size:10px;color:#475569">圓圈大小 ≈ 相對規模｜實際噸數多為非公開</span>
+      </div>
+    </div>
+    <!-- BOTTOM MAP: Future -->
+    <div class="map-block">
+      <div class="map-label">🚀 擴廠計畫：2027+ 新增或升級設施</div>
+      <svg id="svgFuture" class="worldmap" viewBox="0 0 1000 430" xmlns="http://www.w3.org/2000/svg" style="border-radius:8px"></svg>
+      <div class="map-legend">
+        <div class="leg"><div class="leg-dot" style="background:#4ADE80;box-shadow:0 0 6px #4ADE80"></div>✅ 已完工</div>
+        <div class="leg"><div class="leg-dot" style="background:#60A5FA;box-shadow:0 0 6px #60A5FA"></div>🔵 建設中 / 進行中</div>
+        <div class="leg"><div class="leg-dot" style="background:#FBBF24;box-shadow:0 0 5px #FBBF24"></div>🟡 部分投產</div>
+        <div class="leg"><div class="leg-dot" style="background:#374151"></div>⚪ 既有廠（無公告）</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ③ Capacity Chart -->
+<div id="tab-chart" class="panel">
+  <div class="ptitle">📊 產能比較：舊有 vs. 新增（MT/年）</div>
+  <p class="pnote">深色 = 既有產能（灰=有來源 / 斜線=非公開）｜彩色 = 已公告新增量。三家有可驗證既有數字；其餘四家業界不公開逐廠噸數，只顯示新增條。</p>
+  <div style="overflow-x:auto">
+    <svg id="stackedChart" viewBox="0 0 920 400" width="920" height="400" style="min-width:720px;display:block"></svg>
+  </div>
+  <table class="cap-table" style="margin-top:20px">
+    <thead>
+      <tr><th>公司</th><th>旗下品牌</th><th>地點</th><th>品項</th><th>既有產能</th><th>新增 MT/年</th><th>投資</th><th>預計上線</th><th>狀態</th></tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><b>Leprino Nutrition</b><br><small style="color:#64748B">Leprino Foods 旗下</small></td>
+        <td><span style="color:#4ADE80;font-weight:700">Leprino Nutrition™</span><br><small style="color:#64748B">全球最大莫扎瑞拉廠跨入乳清</small></td>
+        <td>USA Texas Lubbock</td><td>MWP 微顆粒</td>
+        <td>~2,250 MT<br><small style="color:#64748B">「×4」推算（Nutritional Outlook）</small></td>
+        <td><b>+6,750</b>（×4→9,000 MT）</td><td>US$35M</td><td>✅ 完工</td><td><span class="tag tg">已完成</span></td>
+      </tr>
+      <tr>
+        <td><b>FrieslandCampina</b><br><small style="color:#64748B">Wisconsin Whey 已收購</small></td>
+        <td><span style="color:#60A5FA;font-weight:700">Nutri Whey™</span><br><small style="color:#64748B">ProHeat / Native / Isolate 系列</small></td>
+        <td>USA Wisconsin ＋ 荷蘭三廠</td><td>WPI / WPC</td>
+        <td>~4,000 MT WPI<br><small style="color:#64748B">「more than doubled」推算（DairyReporter 2026/01）</small></td>
+        <td><b>+6,000</b>（→ 10,000 MT，22M lbs/yr）</td><td>€90M (NL) + WI</td><td>2027–2028</td><td><span class="tag tb">進行中</span></td>
+      </tr>
+      <tr>
+        <td><b>DMK Group</b></td>
+        <td><span style="color:#60A5FA;font-weight:700">wheyco™</span><br><small style="color:#64748B">B2B 乳清成分品牌</small><br><span style="color:#94A3B8;font-size:10px">MILRAM（消費者乳品）</span></td>
+        <td>德國 Edewecht</td><td>WPC80</td>
+        <td>未公開（業界慣例）</td>
+        <td><b>+7,000</b></td><td>€26M</td><td>TBD</td><td><span class="tag tb">建設中</span></td>
+      </tr>
+      <tr>
+        <td><b>Glanbia JV</b><br><small style="color:#64748B">with Southwest Cheese</small></td>
+        <td><span style="color:#60A5FA;font-weight:700">Provon®</span> (B2B WPI)<br><span style="color:#FCD34D;font-weight:700">Optimum Nutrition</span> ★億元品牌<br><span style="color:#93C5FD;font-weight:700">Isopure</span> (WPI 消費者)</td>
+        <td>USA New Mexico Clovis</td><td>WPI</td>
+        <td>~7,500 MT<br><small style="color:#64748B">2004 Clovis 開幕公告（舊）</small></td>
+        <td><b>+4,500 MT WPI</b></td><td>未公布</td><td>2027</td><td><span class="tag tb">進行中</span></td>
+      </tr>
+      <tr>
+        <td><b>Saputo</b></td>
+        <td><span style="color:#FBBF24;font-weight:700">Saputo Ingredients</span><br><small style="color:#64748B">新設立專屬成分事業部</small></td>
+        <td>USA Wisconsin Ripon</td><td>WPC80</td>
+        <td>未公開（業界慣例）</td>
+        <td>現有 <b>+35%</b></td><td>CA$180M+</td><td>滾動升級</td><td><span class="tag ta">滾動</span></td>
+      </tr>
+      <tr>
+        <td><b>Tirlán</b><br><small style="color:#64748B">前身 Glanbia Ireland</small></td>
+        <td><span style="color:#60A5FA;font-weight:700">Tirlán Ingredients</span><br><small style="color:#64748B">Clear Whey Isolate 為主力</small></td>
+        <td>愛爾蘭 Ballyragget</td><td>WPC / WPI / Clear Whey</td>
+        <td>小規模既有（未公開）</td>
+        <td>新廠 <b>TBD</b></td><td>€126M</td><td>2027 H1</td><td><span class="tag tb">建設中</span></td>
+      </tr>
+      <tr>
+        <td><b>Fonterra</b></td>
+        <td><span style="color:#FBBF24;font-weight:700">NZMP™</span> (B2B 成分)<br><small style="color:#64748B">130+ 國銷售 ｜ 美國廠：Columbia River</small><br><span style="color:#94A3B8;font-size:10px">Anchor（消費者奶品）</span></td>
+        <td>紐西蘭 Studholme</td><td>WPC</td>
+        <td>未公開（業界慣例）</td>
+        <td><b>TBD</b></td><td>AUS$75M</td><td>2026 部分投產</td><td><span class="tag ta">部分投產</span></td>
+      </tr>
+      <tr>
+        <td><b style="color:#F87171">Hilmar Ingredients</b></td>
+        <td><span style="color:#F87171;font-weight:700">PROtelyze™</span> (WPH 系列)<br><small style="color:#64748B">Bio-Brain / Extend / Pet / 9000 WPI</small><br><span style="color:#94A3B8;font-size:10px">全球最大單廠加工商</span></td>
+        <td>USA CA / TX / KS</td><td>WPC+WPI+WPH</td>
+        <td>~83,000 MT（全系列）</td>
+        <td><b>⚠ 無擴廠公告</b></td><td>—</td><td>—</td><td><span class="tag tgr">觀察中</span></td>
+      </tr>
+    </tbody>
+  </table>
+  <p style="font-size:10.5px;color:#475569;margin-top:8px">* Leprino 推估基準：Nutritional Outlook 報導「capacity expanded by ×4」，故既有 = 9,000 ÷ 4 = 2,250 MT。所有其他「既有產能」因廠商未公開，圖表以灰色斜線示意。</p>
+</div>
+
+<!-- ④ Blind Spots -->
+<div id="tab-blind" class="panel">
+  <div class="ptitle">⚡ 你可能沒注意到的 8 個盲點</div>
+  <div class="bs-grid">
+    <div class="bsc hot"><div class="bsi">👶</div><div class="bst">① 嬰兒配方奶的隱性優先權</div><div class="bsb">Arla、FrieslandCampina 的乳清先賣給嬰配廠（法規要求、長約鎖死）。運動品牌搶的是剩下的餘量。新增產能上線後，嬰配廠先拿，運動市場緩解比你想的更晚。</div></div>
+    <div class="bsc hot"><div class="bsi">💊</div><div class="bst">② GLP-1 不是趨勢，是結構性位移</div><div class="bsb">2025 年全球約 3,500 萬人服用 GLP-1，2027 年預估 8,000 萬人。用藥者因食量減少需要「高蛋白密度」食物，人均乳清消耗量上升。這不會隨短缺緩解而消失。</div></div>
+    <div class="bsc"><div class="bsi">🧬</div><div class="bst">③ 精準發酵乳清蛋白正在趕來</div><div class="bsb">Remilk、ADM/Ginkgo Bioworks 正在開發精準發酵 β-乳球蛋白。若 WPI 維持高價到 2028–2029，將加速商業化——不需要牛，不需要超濾膜。Fonterra 本人也是 Vivici（精準發酵）股東。</div></div>
+    <div class="bsc"><div class="bsi">💸</div><div class="bst">④ WPH 廠商的利潤被擠壓</div><div class="bsb">水解乳清是「WPI→酵素水解」的下游。WPI 漲到 €25,000/t，WPH 廠商採購成本爆增，但嬰配廠有議價力，終端售價無法等比上漲。Arla、Morinaga 的 WPH 利潤空間在壓縮。</div></div>
+    <div class="bsc"><div class="bsi">🍂</div><div class="bst">⑤ 春季泌乳高峰是短暫套利窗口</div><div class="bsb">愛爾蘭、紐西蘭、北歐在春季（3–5 月）泌乳量激增，形成 WPC34/WPC80 短暫過剩。懂得在這個視窗多採購的買家往往能在全年最低點鎖庫存。多數亞洲採購沒有掌握這個節奏。</div></div>
+    <div class="bsc"><div class="bsi">⚡</div><div class="bst">⑥ 噴霧乾燥是高能耗製程</div><div class="bsb">噴霧乾燥塔是乳清加工電耗第一名。歐洲能源成本居高不下，愛爾蘭與荷蘭的生產成本比 2021 年高出 30–40%。即使產能上線，每噸乳清蛋白的生產成本也比過去高——高價不等於高利潤。</div></div>
+    <div class="bsc"><div class="bsi">🏗️</div><div class="bst hot">⑦ 所有「2027 上線」都有滑動風險</div><div class="bsb">超濾膜與噴霧乾燥塔的供應商（GEA、SPX、Tetra Pak）訂單積壓 24–36 個月。Tirlán €126M 廠、Glanbia NM JV 都依賴相同設備商。任一廠延誤 3–6 個月，就推遲整個市場緩解時點。</div></div>
+    <div class="bsc"><div class="bsi">🇳🇿</div><div class="bst">⑧ Fonterra 的雙重角色衝突</div><div class="bsb">Fonterra 既是 Vivici（精準發酵）股東，又是傳統乳清最大產地之一。這個押注意味著 Fonterra 未來可能優先開發非動物來源蛋白，而非全力投入傳統 WPI 擴產。</div></div>
+  </div>
+  <div style="margin-top:20px;padding:14px 18px;background:#111827;border-radius:10px;border:1px solid #1E3A5F">
+    <div style="font-size:12px;font-weight:700;color:#60A5FA;margin-bottom:8px">🎯 業務一句話整合</div>
+    <p style="font-size:11.5px;color:#94A3B8;line-height:1.65">「2027 年後產能會來，但<b style="color:#FCA5A5">嬰配廠先拿、GLP-1 需求持續增、設備建設可能延遲</b>——所謂緩解可能只解 WPC34/WPC80 現貨，WPI 和 WPH 仍緊俏到 2028。
+    現在最有護城河的業務行動：幫客戶拿 <b style="color:#4ADE80">WPI 長約</b>（對方需要確定性）、用 <b style="color:#4ADE80">WPI+膠原肽混搭方案</b>（有業界背書）、把 <b style="color:#4ADE80">Clear Whey 供應能力</b>當差異化話題（沒有供應商在宣揚這個）。」</p>
+  </div>
+</div>
+
+<script>
+function showTab(id, el) {
+  document.querySelectorAll('.panel').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+  document.getElementById('tab-' + id).classList.add('active');
+  el.classList.add('active');
+  if (id === 'maps') { buildMapNow(); buildMapFuture(); }
+  if (id === 'chart') buildStackedChart();
+}
+
+// ── SVG Map helpers ──────────────────────────────────────────
+const W = 1000, H = 430;
+function ll(lat, lon) {
+  return [(lon + 180) / 360 * W, (90 - lat) / 180 * H];
+}
+function poly(pts) {
+  return pts.map(p => ll(p[0], p[1]).join(',')).join(' ');
+}
+
+// Continent data (equirectangular)
+const LAND = {
+  na: [[72,-138],[70,-130],[64,-168],[60,-145],[56,-132],[50,-127],[45,-124],[37,-122],[32,-117],[25,-110],[18,-96],[8,-77],[10,-75],[22,-87],[25,-80],[30,-81],[32,-80],[36,-76],[40,-74],[42,-70],[44,-67],[46,-60],[47,-53],[50,-55],[56,-62],[62,-66],[64,-84],[60,-92],[56,-96],[55,-115],[60,-140],[65,-168],[70,-163],[72,-138]],
+  sa: [[12,-72],[10,-62],[8,-60],[4,-52],[0,-50],[-5,-35],[-10,-37],[-15,-39],[-23,-43],[-30,-50],[-38,-57],[-42,-63],[-55,-67],[-55,-66],[-42,-73],[-38,-73],[-30,-72],[-20,-70],[-12,-77],[-5,-80],[0,-78],[5,-77],[12,-72]],
+  eu: [[36,-8],[38,-9],[40,-8],[43,-9],[44,-8],[47,-5],[49,0],[51,2],[53,8],[55,10],[57,8],[58,6],[62,5],[65,14],[70,26],[70,32],[65,28],[60,28],[56,24],[54,20],[50,14],[48,17],[47,10],[44,8],[43,6],[40,4],[38,0],[36,-1],[36,-8]],
+  uk: [[50,-5.7],[51,-5],[53,-4],[55,-3],[58,-5],[58,-3],[57,0],[55,1.5],[53,1.5],[51,1.5],[50,0],[50,-5.7]],
+  ie: [[51.4,-10.5],[55.4,-7.5],[55.2,-6],[54,-6],[52.5,-6.4],[51.4,-10.5]],
+  af: [[37,10],[37,-5],[30,-13],[22,-17],[14,-17],[4,-15],[0,-8],[-5,10],[-10,14],[-20,35],[-35,18],[-34,26],[-26,33],[-20,36],[-10,40],[0,41],[10,45],[15,42],[20,37],[30,32],[37,10]],
+  as: [[70,30],[70,60],[70,100],[65,140],[55,140],[45,145],[40,142],[35,135],[32,130],[25,122],[22,114],[15,110],[5,100],[0,104],[-5,107],[-8,115],[-8,125],[0,130],[5,125],[10,125],[20,120],[22,115],[10,80],[8,77],[0,73],[5,40],[10,45],[20,37],[30,32],[37,38],[42,42],[50,50],[60,55],[70,30]],
+  au: [[-15,130],[-15,137],[-20,148],[-28,154],[-37,150],[-38,146],[-37,140],[-34,136],[-32,116],[-22,114],[-15,130]],
+  nzN: [[-34,172],[-37,175],[-41,175],[-41,172],[-37,174],[-34,172]],
+  nzS: [[-40,172.5],[-46,168],[-46,170],[-44,172],[-40,172.5]]
+};
+
+function svgBase() {
+  const ocean = `<defs>
+    <linearGradient id="og" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#0C1A2E"/><stop offset="100%" stop-color="#0F2040"/></linearGradient>
+    <filter id="gl"><feGaussianBlur stdDeviation="4" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+    <filter id="gl2"><feGaussianBlur stdDeviation="6" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+  </defs>
+  <rect width="${W}" height="${H}" fill="url(#og)" rx="8"/>`;
+
+  // Grid
+  let grid = '';
+  for (let lat = -60; lat <= 80; lat += 30) {
+    const [,y] = ll(lat, 0);
+    grid += `<line x1="0" y1="${y.toFixed(1)}" x2="${W}" y2="${y.toFixed(1)}" stroke="rgba(30,58,95,0.35)" stroke-width="0.5"/>`;
+  }
+  for (let lon = -180; lon <= 180; lon += 60) {
+    const [x] = ll(0, lon);
+    grid += `<line x1="${x.toFixed(1)}" y1="0" x2="${x.toFixed(1)}" y2="${H}" stroke="rgba(30,58,95,0.35)" stroke-width="0.5"/>`;
+  }
+
+  // Continents
+  const lc = '#1E3A5F', ls = 'rgba(56,189,248,0.06)', lac = '#182E4A';
+  let polys = '';
+  polys += `<polygon points="${poly(LAND.na)}" fill="${lc}" stroke="${ls}" stroke-width="0.7"/>`;
+  polys += `<polygon points="${poly(LAND.sa)}" fill="${lc}" stroke="${ls}" stroke-width="0.7"/>`;
+  polys += `<polygon points="${poly(LAND.eu)}" fill="${lc}" stroke="${ls}" stroke-width="0.7"/>`;
+  polys += `<polygon points="${poly(LAND.uk)}" fill="${lc}" stroke="${ls}" stroke-width="0.7"/>`;
+  polys += `<polygon points="${poly(LAND.ie)}" fill="${lc}" stroke="${ls}" stroke-width="0.7"/>`;
+  polys += `<polygon points="${poly(LAND.af)}" fill="${lac}" stroke="${ls}" stroke-width="0.7"/>`;
+  polys += `<polygon points="${poly(LAND.as)}" fill="${lac}" stroke="${ls}" stroke-width="0.7"/>`;
+  polys += `<polygon points="${poly(LAND.au)}" fill="${lc}" stroke="${ls}" stroke-width="0.7"/>`;
+  polys += `<polygon points="${poly(LAND.nzN)}" fill="${lc}" stroke="${ls}" stroke-width="0.7"/>`;
+  polys += `<polygon points="${poly(LAND.nzS)}" fill="${lc}" stroke="${ls}" stroke-width="0.7"/>`;
+
+  return ocean + grid + polys;
+}
+
+// Site marker with label (no overlap)
+// dir: 'r'=right, 'l'=left, 't'=top, 'b'=bottom, 'tr', 'tl', 'br', 'bl'
+function siteMarker(lat, lon, r, color, label, dir, sublabel, pulse=false) {
+  const [x, y] = ll(lat, lon);
+  const pad = 5, fs = 10.5, lh = 13;
+  const lines = label.split('\n');
+  const textW = Math.max(...lines.map(l => l.length)) * 6.2 + pad*2;
+  const textH = lines.length * lh + (sublabel ? lh : 0) + pad*2;
+
+  let tx, ty, anchor;
+  const off = r + 8;
+  if (dir === 'r')  { tx = x + off; ty = y - (textH/2); anchor = 'start'; }
+  else if (dir === 'l')  { tx = x - off - textW; ty = y - (textH/2); anchor = 'start'; }
+  else if (dir === 't')  { tx = x - textW/2; ty = y - off - textH; anchor = 'start'; }
+  else if (dir === 'b')  { tx = x - textW/2; ty = y + off; anchor = 'start'; }
+  else if (dir === 'tr') { tx = x + off*0.7; ty = y - off*0.7 - textH; anchor = 'start'; }
+  else if (dir === 'tl') { tx = x - off*0.7 - textW; ty = y - off*0.7 - textH; anchor = 'start'; }
+  else if (dir === 'br') { tx = x + off*0.7; ty = y + off*0.7; anchor = 'start'; }
+  else if (dir === 'bl') { tx = x - off*0.7 - textW; ty = y + off*0.7; anchor = 'start'; }
+
+  let html = '';
+  if (pulse) {
+    html += `<circle cx="${x.toFixed(1)}" cy="${y.toFixed(1)}" r="${r+12}" fill="none" stroke="${color}" stroke-width="1.5" opacity="0.3"><animate attributeName="r" values="${r+8};${r+20};${r+8}" dur="2.5s" repeatCount="indefinite"/><animate attributeName="opacity" values="0.4;0;0.4" dur="2.5s" repeatCount="indefinite"/></circle>`;
+    html += `<circle cx="${x.toFixed(1)}" cy="${y.toFixed(1)}" r="${r+6}" fill="none" stroke="${color}" stroke-width="1" opacity="0.2"><animate attributeName="r" values="${r+4};${r+14};${r+4}" dur="2.5s" begin="0.5s" repeatCount="indefinite"/><animate attributeName="opacity" values="0.3;0;0.3" dur="2.5s" begin="0.5s" repeatCount="indefinite"/></circle>`;
+  }
+  html += `<circle cx="${x.toFixed(1)}" cy="${y.toFixed(1)}" r="${r}" fill="${color}" opacity="0.9" filter="url(#gl)"/>`;
+  html += `<circle cx="${x.toFixed(1)}" cy="${y.toFixed(1)}" r="${r-2}" fill="${color}" opacity="1"/>`;
+  html += `<circle cx="${(x-r*0.3).toFixed(1)}" cy="${(y-r*0.3).toFixed(1)}" r="${(r*0.25).toFixed(1)}" fill="white" opacity="0.3"/>`;
+
+  // Label background
+  html += `<rect x="${tx.toFixed(1)}" y="${ty.toFixed(1)}" width="${textW.toFixed(1)}" height="${textH.toFixed(1)}" rx="4" fill="rgba(11,22,44,0.85)" stroke="${color}" stroke-width="0.8" stroke-opacity="0.5"/>`;
+  lines.forEach((line, i) => {
+    html += `<text x="${(tx+pad).toFixed(1)}" y="${(ty + pad + (i+1)*lh - 2).toFixed(1)}" font-size="${fs}" fill="${color}" font-family="Segoe UI,sans-serif" font-weight="700">${line}</text>`;
+  });
+  if (sublabel) {
+    html += `<text x="${(tx+pad).toFixed(1)}" y="${(ty + pad + lines.length*lh + lh - 3).toFixed(1)}" font-size="9" fill="rgba(252,211,77,0.9)" font-family="Segoe UI,sans-serif">${sublabel}</text>`;
+  }
+  return html;
+}
+
+// ── Current map ───────────────────────────────────────────────
+function buildMapNow() {
+  let svg = svgBase();
+  svg += siteMarker(37.4, -120.8, 16, '#22D3EE', 'Hilmar\n(Hilmar, CA)', 'l', '全球最大單廠');
+  svg += siteMarker(36.1, -102.5, 10, '#22D3EE', 'Hilmar TX', 'b', '');
+  svg += siteMarker(37.8, -100.0, 10, '#22D3EE', 'Hilmar KS', 'tr', '');
+  svg += siteMarker(42.7, -90.1,   9, '#38BDF8', 'FC Darlington\nWisconsin', 't', 'WPI');
+  svg += siteMarker(43.8, -88.8,  10, '#67E8F9', 'Saputo\nRipon WI', 'r', 'WPC80');
+  svg += siteMarker(33.6, -101.8,  9, '#7DD3FC', 'Leprino\nLubbock TX', 'b', 'MWP');
+  svg += siteMarker(52.5,   5.5,  13, '#4ADE80', 'FrieslandCampina\nNetherlands', 'br', 'WPC·WPI·WPH');
+  svg += siteMarker(53.3,   9.0,  10, '#4ADE80', 'DMK\nEdewecht DE', 'r', 'WPC80');
+  svg += siteMarker(52.6,  -7.3,  10, '#4ADE80', 'Tirlán\nBallyragget IE', 'l', 'WPC');
+  svg += siteMarker(52.2,  -8.5,   8, '#86EFAC', 'Kerry\nIreland', 'tl', '');
+  svg += siteMarker(-44.7, 171.2,  10, '#FBBF24', 'Fonterra\nStudholme NZ', 'bl', 'WPC');
+  svg += siteMarker(-37.7, 143.5,   8, '#FBBF24', 'Saputo\nAustralia', 't', '');
+  // Title
+  svg += `<rect x="10" y="8" width="300" height="42" rx="6" fill="rgba(11,22,44,0.8)"/>`;
+  svg += `<text x="20" y="28" font-size="13" fill="#60A5FA" font-family="Segoe UI,sans-serif" font-weight="700">現況主要乳清蛋白加工廠</text>`;
+  svg += `<text x="20" y="44" font-size="10" fill="#64748B" font-family="Segoe UI,sans-serif">美洲主導 ｜ 歐洲次之 ｜ 大洋洲補充</text>`;
+  document.getElementById('svgNow').innerHTML = svg;
+}
+
+// ── Future map ────────────────────────────────────────────────
+function buildMapFuture() {
+  let svg = svgBase();
+  // Expansion ring highlight for Europe cluster
+  const [exEU, eyEU] = ll(52, 1);
+  svg += `<ellipse cx="${exEU.toFixed(1)}" cy="${eyEU.toFixed(1)}" rx="95" ry="52" fill="rgba(96,165,250,0.06)" stroke="rgba(96,165,250,0.3)" stroke-width="1.5" stroke-dasharray="6,4"/>`;
+  svg += `<text x="${(exEU).toFixed(1)}" y="${(eyEU - 58).toFixed(1)}" font-size="10" fill="#93C5FD" font-family="Segoe UI,sans-serif" text-anchor="middle">🔵 歐洲擴廠主戰場</text>`;
+
+  svg += siteMarker(33.6, -101.8, 13, '#4ADE80', 'Leprino TX\n✅ 完工', 'b', 'US$35M ×4→9,000MT');
+  svg += siteMarker(42.7, -90.1,  12, '#60A5FA', 'FC Wisconsin\n建設中', 'tl', '+~10,000MT WPI 2027+', true);
+  svg += siteMarker(34.4, -103.2, 11, '#60A5FA', 'Glanbia JV\nNew Mexico', 't', '+4,500MT WPI 2027', true);
+  svg += siteMarker(43.8, -88.8,  10, '#FBBF24', 'Saputo\nRipon WI', 'r', 'CA$180M+ +35%');
+  svg += siteMarker(52.5,   5.5,  14, '#60A5FA', 'FrieslandCampina\n荷蘭三廠', 'br', '€90M 大規模 2028', true);
+  svg += siteMarker(52.6,  -7.3,  13, '#60A5FA', 'Tirlán\nBallyragget', 'tl', '€126M 新廠 2027H1', true);
+  svg += siteMarker(53.3,   9.0,  11, '#60A5FA', 'DMK\nEdewecht', 'r', '€26M +7,000MT WPC80', true);
+  svg += siteMarker(-44.7, 171.2, 10, '#FBBF24', 'Fonterra\nStudholme', 'bl', 'AUS$75M 2026 部分');
+  // Hilmar as grey (no announcement)
+  svg += siteMarker(37.4, -120.8,  9, '#374151', 'Hilmar CA\n⚠ 無擴廠公告', 'l', '最大不確定性');
+
+  svg += `<rect x="10" y="8" width="300" height="42" rx="6" fill="rgba(11,22,44,0.8)"/>`;
+  svg += `<text x="20" y="28" font-size="13" fill="#60A5FA" font-family="Segoe UI,sans-serif" font-weight="700">2027+ 擴廠計畫分布</text>`;
+  svg += `<text x="20" y="44" font-size="10" fill="#64748B" font-family="Segoe UI,sans-serif">藍光脈衝 = 建設中 ｜ 綠 = 已完工 ｜ 灰 = 無公告</text>`;
+  document.getElementById('svgFuture').innerHTML = svg;
+}
+
+// ── Stacked Chart ─────────────────────────────────────────────
+function buildStackedChart() {
+  // bk=true: base figure from a verifiable source  bk=false: not publicly disclosed
+  const data = [
+    // base: ~2,250 MT (Nutritional Outlook: ×4 expansion implied ÷4)
+    { co:'Leprino TX',       brand:'Leprino Nutrition™', base: 2250, newMT: 6750, color:'#4ADE80', prod:'MWP ✅完工',     bk:true  },
+    { co:'FC Wisconsin WPI', brand:'Nutri Whey™',        base: 4000, newMT: 6000, color:'#60A5FA', prod:'WPI 2027-28',    bk:true  },
+    { co:'Glanbia JV NM',    brand:'Provon® / ON / Isopure', base: 7500, newMT: 4500, color:'#60A5FA', prod:'WPI 2027',  bk:true  },
+    { co:'DMK Edewecht',     brand:'wheyco™',            base:    0, newMT: 7000, color:'#60A5FA', prod:'WPC80 TBD',      bk:false },
+    { co:'Tirlán Ireland',   brand:'Tirlán Ingredients', base:    0, newMT: 5000, color:'#60A5FA', prod:'Clear WPI 2027', bk:false },
+    { co:'Saputo Ripon WI',  brand:'Saputo Ingredients', base:    0, newMT: 3500, color:'#FBBF24', prod:'WPC80 +35%',     bk:false },
+    { co:'Fonterra NZ',      brand:'NZMP™',              base:    0, newMT: 2000, color:'#FBBF24', prod:'WPC 2026部分',   bk:false },
+  ];
+
+  const maxVal = Math.max(...data.map(d => d.base + d.newMT)) * 1.15;
+  const left = 148, top = 36, bW = 60, gap = 34, chartH = 290;
+  const totalW = data.length * (bW + gap) + left + 40;
+
+  let html = `<rect width="920" height="400" fill="#111827" rx="12"/>`;
+  html += `<text x="460" y="24" text-anchor="middle" font-size="13" fill="#60A5FA" font-family="Segoe UI,sans-serif" font-weight="700">乳清蛋白擴產規模比較（MT/年）— 舊有＋新增</text>`;
+
+  // Y axis
+  const steps = [0, 3000, 6000, 9000, 12000, 15000];
+  steps.forEach(v => {
+    const y = top + chartH - (v / maxVal) * chartH;
+    html += `<line x1="${left-6}" y1="${y.toFixed(1)}" x2="${totalW-20}" y2="${y.toFixed(1)}" stroke="#1E3A5F" stroke-width="0.7" stroke-dasharray="${v===0?'':'4,3'}"/>`;
+    html += `<text x="${left-10}" y="${(y+4).toFixed(1)}" text-anchor="end" font-size="10" fill="#64748B" font-family="Segoe UI,sans-serif">${v===0?'0':v>=1000?(v/1000)+'k':v}</text>`;
+  });
+  html += `<text x="18" y="180" text-anchor="middle" font-size="10" fill="#64748B" font-family="Segoe UI,sans-serif" transform="rotate(-90,18,180)">MT / 年</text>`;
+
+  data.forEach((d, i) => {
+    const bx = left + i * (bW + gap);
+    const baseH = (d.base / maxVal) * chartH;
+    const newH  = (d.newMT / maxVal) * chartH;
+    const by    = top + chartH;
+
+    // Base bar (grey or hatched if unknown)
+    if (d.base > 0) {
+      const baseColor = d.bk ? '#374151' : '#1E3A5F';
+      html += `<rect x="${bx}" y="${(by - baseH).toFixed(1)}" width="${bW}" height="${baseH.toFixed(1)}" fill="${baseColor}" rx="3"/>`;
+      if (!d.bk) {
+        // Hatching to show "unknown estimate"
+        const hid = `h${i}`;
+        html += `<defs><pattern id="${hid}" patternUnits="userSpaceOnUse" width="8" height="8" patternTransform="rotate(45)"><line x1="0" y1="0" x2="0" y2="8" stroke="rgba(100,116,139,0.4)" stroke-width="3"/></pattern></defs>`;
+        html += `<rect x="${bx}" y="${(by - baseH).toFixed(1)}" width="${bW}" height="${baseH.toFixed(1)}" fill="url(#${hid})" rx="3"/>`;
+      }
+      // Base label inside bar if tall enough
+      if (baseH > 22) {
+        const label = d.bk ? `${(d.base/1000).toFixed(1)}k` : '推估';
+        html += `<text x="${(bx + bW/2).toFixed(1)}" y="${(by - baseH/2 + 4).toFixed(1)}" text-anchor="middle" font-size="9.5" fill="${d.bk ? '#94A3B8' : '#64748B'}" font-family="Segoe UI,sans-serif">${label}</text>`;
+      }
+    }
+
+    // New capacity bar (colored)
+    const ny = by - baseH - newH;
+    html += `<rect x="${bx}" y="${ny.toFixed(1)}" width="${bW}" height="${newH.toFixed(1)}" fill="${d.color}" rx="3" opacity="0.9"/>`;
+    if (newH > 18) {
+      html += `<text x="${(bx + bW/2).toFixed(1)}" y="${(ny + newH/2 + 4).toFixed(1)}" text-anchor="middle" font-size="10" fill="#0F172A" font-family="Segoe UI,sans-serif" font-weight="700">+${(d.newMT/1000).toFixed(1)}k</text>`;
+    }
+
+    // Total label above
+    html += `<text x="${(bx + bW/2).toFixed(1)}" y="${(ny - 5).toFixed(1)}" text-anchor="middle" font-size="10.5" fill="#E2E8F0" font-family="Segoe UI,sans-serif" font-weight="700">${((d.base+d.newMT)/1000).toFixed(0)}k${d.bk?'':'+?'}</text>`;
+
+    // Company name (rotated)
+    html += `<text x="${(bx + bW/2).toFixed(1)}" y="${(by + 14).toFixed(1)}" text-anchor="end" font-size="10" fill="#E2E8F0" font-family="Segoe UI,sans-serif" font-weight="700" transform="rotate(-35,${(bx+bW/2).toFixed(1)},${(by+14).toFixed(1)})">${d.co}</text>`;
+    // Brand name
+    html += `<text x="${(bx + bW/2).toFixed(1)}" y="${(by + 27).toFixed(1)}" text-anchor="end" font-size="9.5" fill="${d.color}" font-family="Segoe UI,sans-serif" font-weight="700" transform="rotate(-35,${(bx+bW/2).toFixed(1)},${(by+27).toFixed(1)})">${d.brand}</text>`;
+    // Product
+    html += `<text x="${(bx + bW/2).toFixed(1)}" y="${(by + 40).toFixed(1)}" text-anchor="end" font-size="9" fill="#64748B" font-family="Segoe UI,sans-serif" transform="rotate(-35,${(bx+bW/2).toFixed(1)},${(by+40).toFixed(1)})">${d.prod}</text>`;
+  });
+
+  // X axis line
+  html += `<line x1="${left}" y1="${(top+chartH).toFixed(1)}" x2="${left + data.length*(bW+gap)}" y2="${(top+chartH).toFixed(1)}" stroke="#334155" stroke-width="1.5"/>`;
+
+  // Legend
+  const ly = top + chartH + 90;
+  html += `<rect x="${left}" y="${ly}" width="14" height="14" fill="#374151" rx="2"/><text x="${left+18}" y="${ly+11}" font-size="10" fill="#94A3B8" font-family="Segoe UI,sans-serif">既有產能（有原始來源）</text>`;
+  const hid2 = 'hleg';
+  html += `<defs><pattern id="${hid2}" patternUnits="userSpaceOnUse" width="8" height="8" patternTransform="rotate(45)"><line x1="0" y1="0" x2="0" y2="8" stroke="rgba(100,116,139,0.5)" stroke-width="3"/></pattern></defs>`;
+  html += `<rect x="${left+200}" y="${ly}" width="14" height="14" fill="#1E3A5F" rx="2"/>`;
+  html += `<rect x="${left+200}" y="${ly}" width="14" height="14" fill="url(#${hid2})" rx="2"/>`;
+  html += `<text x="${left+218}" y="${ly+11}" font-size="10" fill="#94A3B8" font-family="Segoe UI,sans-serif">既有產能（業界非公開，無法標示）</text>`;
+  html += `<rect x="${left+490}" y="${ly}" width="14" height="14" fill="#60A5FA" rx="2" opacity="0.9"/><text x="${left+508}" y="${ly+11}" font-size="10" fill="#94A3B8" font-family="Segoe UI,sans-serif">已公告新增量</text>`;
+  html += `<text x="${left}" y="${ly+26}" font-size="9.5" fill="#475569" font-family="Segoe UI,sans-serif" font-style="italic">✦ FC Wisconsin: DairyReporter 2026/01 — 新廠 +6,000MT，「more than doubled」→ 收購前≈4,000MT WPI</text>`;
+  html += `<text x="${left}" y="${ly+39}" font-size="9.5" fill="#475569" font-family="Segoe UI,sans-serif" font-style="italic">✦ Leprino TX: Nutritional Outlook — ×4 擴產，故既有≈2,250MT（9,000÷4）｜ Glanbia NM: 2004 Clovis 開幕公告 ≈ 7,500MT（舊資料）</text>`;
+  html += `<text x="${left}" y="${ly+52}" font-size="9.5" fill="#FCA5A5" font-family="Segoe UI,sans-serif" font-style="italic">⚠ DMK、Tirlán、Saputo、Fonterra — 不公布逐廠 MT/年數字，業界慣例；彩色條為已公告新增量，灰條留空。Hilmar 未宣布擴廠，不列入。</text>`;
+
+  document.getElementById('stackedChart').innerHTML = html;
+}
+
+// Init
+window.addEventListener('load', () => {
+  buildMapNow(); buildMapFuture(); buildStackedChart();
+  // Pre-render maps on load so first switch is instant
+  buildMapNow(); buildMapFuture();
+});
+</script>
+</body>
+</html>
